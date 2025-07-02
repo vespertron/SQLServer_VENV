@@ -1,0 +1,42 @@
+[
+  {
+    "name": "AllowSQLServer",
+    "port": 1433,
+    "protocol": "TCP",
+    "direction": "inbound",
+    "source": "10.0.0.0/24",
+    "description": "Allow SQL Server traffic from internal subnet"
+  },
+  {
+    "name": "AllowHTTP",
+    "port": 80,
+    "protocol": "TCP",
+    "direction": "inbound",
+    "source": "0.0.0.0/0",
+    "description": "Allow public web traffic"
+  },
+  {
+    "name": "AllowHTTPS",
+    "port": 443,
+    "protocol": "TCP",
+    "direction": "inbound",
+    "source": "0.0.0.0/0",
+    "description": "Allow secure web traffic"
+  },
+  {
+    "name": "DenyAllOutbound",
+    "port": "*",
+    "protocol": "ALL",
+    "direction": "outbound",
+    "destination": "*",
+    "description": "Default deny outbound, only allow via specific rules"
+  },
+  {
+    "name": "AllowMonitoringAgent",
+    "port": 443,
+    "protocol": "TCP",
+    "direction": "outbound",
+    "destination": "monitoring.mycompany.com",
+    "description": "Allow outbound to monitoring service"
+  }
+]
