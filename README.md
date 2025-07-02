@@ -7,7 +7,7 @@ Small-scale simulation managed by a team of 1 member combines system administrat
 - **Documentation**: 
 - This README.md file provides an overview of the project, its structure, and how to set up the environments.
 - The `docs` directory contains detailed documentation on the project, including setup instructions, best practices, and troubleshooting tips.
-- The wiki is used for collaborative documentation and knowledge sharing.
+- The [wiki](https://github.com/vespertron/SQLServer_VENV/wiki) is used for collaborative documentation and knowledge sharing.
 
 ## Features
 
