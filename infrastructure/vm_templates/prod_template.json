@@ -1,0 +1,52 @@
+# Hardened prod VM template {
+  "name": "prod-template",
+  "description": "Hardened production VM template",
+  "os": "ubuntu-22.04",
+  "cpu": {
+    "cores": 4,
+    "threads_per_core": 2
+  },
+  "memory": {
+    "size_mb": 8192
+  },
+  "disk": {
+    "size_gb": 100,
+    "type": "ssd"
+  },
+  "networking": {
+    "interfaces": [
+      {
+        "type": "ethernet",
+        "mac_address": "02:42:ac:11:00:02"
+      }
+    ]
+  },
+  "security": {
+    "firewall_rules": [
+      {
+        "action": "allow",
+        "protocol": "tcp",
+        "port_range": "22,80,443"
+      }
+    ],
+    "ssh_keys": [
+      "<your-public-ssh-key>"
+    ]
+  },
+  "software_packages": [
+    {
+      "name": "nginx",
+      "version": "*"
+    },
+    {
+      "name": "ufw",
+      "version": "*"
+    }
+  ],
+  "hardened_settings": {
+    "disable_root_login": true,
+    "enable_automatic_updates": true,
+    "install_security_updates_only": true
+  }
+}
+

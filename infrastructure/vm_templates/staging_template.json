@@ -1,0 +1,13 @@
+# Packer template for staging VM {
+  {
+    "variables": {
+      "vm_name": "staging_vm",
+      "vm_memory": "4096",
+      "vm_cpus": "4"
+    },
+    "builders": [
+      {
+        "type": "virtualbox-iso",
+        "guest_os_type": "Ubuntu_64",
+        "iso_url": "http://releases.ubuntu.com/20.04/ubuntu-20.04-live-server-amd64.iso",
+        "iso_checksum": "sha256:6c3b

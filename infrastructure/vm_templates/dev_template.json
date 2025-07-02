@@ -1,0 +1,12 @@
+# Packer template for dev VM {
+  "variables": {
+    "vm_name": "dev_vm",
+    "vm_memory": "2048",
+    "vm_cpus": "2"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "guest_os_type": "Ubuntu_64",
+      "iso_url": "http://releases.ubuntu.com/20.04/ubuntu-20.04-live-server-amd64.iso",
+      "iso_checksum": "sha256:6c3b
