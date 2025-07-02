@@ -2,7 +2,7 @@
 Simulating virtualization and database best practices for managing on-prem Dev, Staging, and Prod environments.
 
 ## Approach
-Small-scale simulation managed by a team of 1 member combines system administration (virtualization) and database administration (database) in one repo.
+Small-scale simulation managed by a team of 1 member combines system administration (virtualization, Infrastructure-as-Code) and database administration (database) in one repo.
 
 - **Documentation**: 
 - This README.md file provides an overview of the project, its structure, and how to set up the environments.
