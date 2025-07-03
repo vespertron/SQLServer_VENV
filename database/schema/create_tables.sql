@@ -17,6 +17,7 @@ GO
 -- ========================
 -- CREATE SCHEMAS IF NOT EXISTS
 -- ========================
+-- CREATE SCHEMA CEN    -- Central Services
 -- CREATE SCHEMA HR     __ Human Resources
 -- CREATE SCHEMA IT     -- Information Technology
 -- CREATE SCHEMA ACC    -- Accounting
@@ -81,7 +82,7 @@ CREATE TABLE FIN.Credit_Scores (
 );
 
 -- Protecting Subsidiaries' Data
-CREATE TABLE Subsidiary_Info (
+CREATE TABLE CEN.Subsidiary_Info (
     SubsidiaryID INT PRIMARY KEY,
     Name NVARCHAR(100),
     Region NVARCHAR(50),
