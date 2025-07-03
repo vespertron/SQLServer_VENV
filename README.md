@@ -1,6 +1,9 @@
 # SQLServer_VENV
 Simulating virtualization and database best practices for managing on-prem Dev, Staging, and Prod environments.
 
+## Business Case
+A central holding company provides centralized IT, HR, finance services to a dozen subsidiary trading and distribution companies. Their infrastructure is currently based on on-prem DB2 databases. They are moving to the cloud.
+
 ## Approach
 Small-scale simulation managed by a team of 1 member combines system administration (virtualization, Infrastructure-as-Code) and database administration (database) in one repo.
 
