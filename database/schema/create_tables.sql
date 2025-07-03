@@ -17,7 +17,6 @@ GO
 -- ========================
 -- CREATE SCHEMAS IF NOT EXISTS
 -- ========================
--- CREATE SCHEMA CEN    -- Central Services
 -- CREATE SCHEMA HR     __ Human Resources
 -- CREATE SCHEMA IT     -- Information Technology
 -- CREATE SCHEMA ACC    -- Accounting
@@ -25,6 +24,7 @@ GO
 -- CREATE SCHEMA LEGAL  -- Legal
 -- CREATE SCHEMA ODS	-- Operational Data Store
 -- CREATE SCHEMA MKT    -- Marketing
+-- CREATE SCHEMA SYS    -- Multi-tenant System
 
 
 USE CentralServicesDB;
