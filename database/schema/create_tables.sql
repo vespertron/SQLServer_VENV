@@ -17,81 +17,75 @@ GO
 -- ========================
 -- CREATE SCHEMAS IF NOT EXISTS
 -- ========================
--- CREATE SCHEMA ODS; -- Operational Data Store
--- CREATE SCHEMA WHS; -- Warehouse
--- CREATE SCHEMA MKT; -- Marketing 
+-- CREATE SCHEMA HR     __ Human Resources
+-- CREATE SCHEMA IT     -- Information Technology
+-- CREATE SCHEMA ACC    -- Accounting
+-- CREATE SCHEMA FIN    -- Finance
+-- CREATE SCHEMA LEGAL  -- Legal
+-- CREATE SCHEMA ODS	-- Operational Data Store
+-- CREATE SCHEMA MKT    -- Marketing
 
--- Create Subsidiary table
-CREATE TABLE Subsidiaries (
-    SubsidiaryID INT PRIMARY KEY,
-    SubsidiaryName VARCHAR(255) NOT NULL,
-    SubsidiaryType VARCHAR(100),
-    SubsidiaryLocation VARCHAR(255),
-    ParentCompanyID INT, -- This could refer to the Parent Company if there are multiple entities.
-    LegalEntityStatus VARCHAR(50)
-);
 
--- Create table for Shared HR Data
-CREATE TABLE Employees (
+USE CentralServicesDB;
+GO
+
+-- HR Schema
+CREATE TABLE HR.HR_Employees (
     EmployeeID INT PRIMARY KEY,
-    EmployeeName VARCHAR(255),
-    Department VARCHAR(100),
-    JobTitle VARCHAR(100),
-    HireDate DATE,
-    Salary DECIMAL(10,2),
-    EmploymentStatus VARCHAR(50),
-    SubsidiaryID INT -- Links to Subsidiary in this table
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    SubsidiaryID INT,
+    Role NVARCHAR(100),
+    Department NVARCHAR(100),
+    HireDate DATE
 );
 
-
-CREATE TABLE ODS.SalesOrder (
-    SalesOrderID INT PRIMARY KEY CLUSTERED,
-    CustomerID INT,
-    OrderDate DATE,
-    OrderStatus VARCHAR(20)
+-- IT Schema
+CREATE TABLE IT.IT_Assets (
+    AssetID INT PRIMARY KEY,
+    AssetType NVARCHAR(50),
+    AssignedToEmployeeID INT,
+    PurchaseDate DATE,
+    WarrantyExpiry DATE,
+    SubsidiaryID INT
 );
 
-CREATE TABLE ODS.SalesOrderLine (
-    SalesOrderLineID INT PRIMARY KEY CLUSTERED,
-    SalesOrderID INT,
-    ProductID INT,
-    Quantity INT,
-    UnitPrice DECIMAL(10, 2)
+-- Accounting / Finance Schema
+CREATE TABLE FIN.Finance_Ledger (
+    EntryID INT PRIMARY KEY,
+    SubsidiaryID INT,
+    AccountCode NVARCHAR(20),
+    Amount DECIMAL(18, 2),
+    EntryDate DATE,
+    Description NVARCHAR(255)
 );
 
-CREATE TABLE ODS.Customer (
-    CustomerID INT PRIMARY KEY CLUSTERED,
-    FirstName NVARCHAR(100),
-    LastName NVARCHAR(100),
-    Email NVARCHAR(255)
+-- Legal Schema
+CREATE TABLE LEG.Legal_Contracts (
+    ContractID INT PRIMARY KEY,
+    SubsidiaryID INT,
+    ContractName NVARCHAR(100),
+    StartDate DATE,
+    EndDate DATE,
+    LegalContact NVARCHAR(100),
+    Status NVARCHAR(50)
 );
 
-CREATE TABLE ODS.Product (
-    ProductID INT PRIMARY KEY CLUSTERED,
-    SKU NVARCHAR(50),
+-- Credit / Financing
+CREATE TABLE FIN.Credit_Scores (
+    SubsidiaryID INT PRIMARY KEY,
+    Score INT,
+    LastEvaluated DATE,
+    CreditLimit DECIMAL(18, 2),
+    RiskLevel NVARCHAR(50)
+);
+
+-- Protecting Subsidiaries' Data
+CREATE TABLE Subsidiary_Info (
+    SubsidiaryID INT PRIMARY KEY,
     Name NVARCHAR(100),
-    Category NVARCHAR(100),
-    Price DECIMAL(10, 2)
-);
-
-CREATE TABLE WHS.Inventory (
-    InventoryID INT PRIMARY KEY NONCLUSTERED,
-    WarehouseID INT,
-    ProductID INT,
-    StockLevel INT
-);
--- Composite clustered index to be added separately:
--- CREATE CLUSTERED INDEX IX_Inventory_WHProduct ON Inventory(WarehouseID, ProductID);
-
-CREATE TABLE ODS.CommunicationLog (
-    LogID INT PRIMARY KEY CLUSTERED,
-    RelatedEntityType VARCHAR(50),
-    RelatedEntityID INT,
-    Timestamp DATETIME,
-    Channel VARCHAR(50),
-    Subject NVARCHAR(255),
-    Body NVARCHAR(MAX),
-    FilePath NVARCHAR(500)
+    Region NVARCHAR(50),
+    DataIsolationLevel NVARCHAR(50)  -- e.g. "Strict", "Shared-Metadata-Only"
 );
 
 CREATE TABLE ODS.DocumentLibrary (
