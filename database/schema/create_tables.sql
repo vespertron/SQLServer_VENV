@@ -2,16 +2,16 @@
 -- CREATE TABLES
 ---------------------------
 -- Server: [My local SQL server]
--- Database: BMTC
+-- Database: CentralServicesDB
 -- Author: Vesper Annstas
--- Date: 06/26/2025
--- Description: This script creates the necessary tables for the BMTC database. Is dependent on the database being created first.
--- Last Modified: 06/27/2025
+-- Date: 07/02/2025
+-- Description: This script creates the necessary tables for the CentralServicesDB database. Is dependent on the database being created first.
+-- Last Modified: 07/02/2025
 -- Modified By: Vesper Annstas
--- Modification Notes: Added indexes for performance optimization,
+-- Modification Notes: initial creation of tables for the CentralServicesDB database.
 -- ========================
 
-USE BMTC;
+USE CentralServicesDB;
 GO
 
 -- ========================
