@@ -1,3 +1,6 @@
+# Module to gather system information on Windows using PowerShell
+# Requires -Version 5.1 +
+
 # CPU info
 Get-CimInstance -ClassName Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors
 
