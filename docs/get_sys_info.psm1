@@ -1,21 +1,54 @@
 # Module to gather system information on Windows using PowerShell
 # Requires -Version 5.1 +
 
+
+# system information
+# Host Name
+$env:COMPUTERNAME
+
+
+# System Manufacturer and Model
+Get-CimInstance Win32_ComputerSystem
+
+
 # CPU info
 Get-CimInstance -ClassName Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors
+
+
+# Virtualization Enabled?
+Get-CimInstance Win32_ComputerSystem | Select HypervisorPresent
+
+systeminfo
+
+
+# BIOS info
+Get-CimInstance -ClassName Win32_BIOS | Select-Object Manufacturer, SMBIOSBIOSVersion, ReleaseDate
+
+# Secure Boot Enabled?
+Confirm-SecureBootUEFI
 
 # RAM
 Get-CimInstance -ClassName Win32_PhysicalMemory | Measure-Object -Property Capacity -Sum | 
     ForEach-Object { "{0:N2} GB" -f ($_.Sum / 1GB) }
 
-# BIOS info
-Get-CimInstance -ClassName Win32_BIOS | Select-Object Manufacturer, SMBIOSBIOSVersion, ReleaseDate
+systeminfo
+
 
 # OS info
 Get-CimInstance Win32_OperatingSystem | Select Caption, Version, BuildNumber
 
-# Check if virtualization is enabled
-Get-CimInstance Win32_ComputerSystem | Select HypervisorPresent
+# OS Version
+Get-CimInstance Win32_OperatingSystem
+
+# OS Edition
+Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+
+# OS License Key Activation Status
+slmgr /xpr
+
+# Storage
+# Primary Disk
+Get-PhysicalDisk
 
 # NICs
 Get-NetAdapter |
