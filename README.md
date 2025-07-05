@@ -6,11 +6,30 @@ This repository contains scripts, configurations, and documentation for standing
 ## Repo Structure
 ```
 ├── virtualization/
-│ ├── hypervisor_config/
-│ ├── vm_templates/
-│ ├── network_topology/
-│ ├── firewall_rules/
-│ └── patching_strategy.md
+|   ├── ansible/                         # Playbooks for post-VM configuration
+│   |   ├── inventory/                   # Host/group inventory
+│   |   ├── roles/                       # Ansible roles for SQL, AD, IIS, etc.
+│   |   └── site.yml                     # Entry playbook
+|   ├── packer/                          # Packer templates to build golden images
+│   |   ├── windows-server-2022.json
+│   |   └── scripts/
+│   |       ├── install-sql.ps1
+│   |       └── enable-rdp.ps1
+|   ├── terraform/                       # Infrastructure provisioning (if cloud or nested ESXi)
+│   |   ├── main.tf
+│   |   ├── variables.tf
+│   |   └── outputs.tf
+|   ├── tests/                           # Automated tests (e.g., Inspec, Pester, PowerShell)
+│   |   ├── validate-domain.ps1
+│   |   └── test-sql-service.ps1
+|   ├── docs/                            # Architecture, checklist, config
+│   |   ├── VM_Setup_Checklist.xlsx
+│   |   ├── network-plan.md
+│   |   └── vm-topology.drawio
+|   ├── scripts/                         # General provisioning scripts
+|   │   ├── create-vms.ps1
+|   │   ├── set-static-ip.ps1
+|   │   └── join-domain.ps1
 ├── database/
 │ ├── schema/
 │ │ ├── create_databases.sql
