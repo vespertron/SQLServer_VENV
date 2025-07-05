@@ -128,7 +128,7 @@ This document outlines all the tools and accounts required to use this repositor
 | **SSMS**                | https://aka.ms/ssms                                       |
 | **Azure Data Studio**   | https://learn.microsoft.com/en-us/sql/azure-data-studio  |
 | **Proxmox VE ISO**      | https://www.proxmox.com/en/downloads                     |
-| **Hyper-V (Windows)**   | https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/ |
+| **VMWare Workstation**  | https://support.broadcom.com/group/ecx/free-downloads |
 | **Git**                 | https://git-scm.com/downloads                            |
 
 ---
