@@ -16,7 +16,7 @@ This repository contains scripts, configurations, and documentation for standing
 
 ## Documentation
 - This README.md file provides an overview of the project, its structure, and how to set up the environments.
-- The `docs` directory contains documentation on the project including templates, diagrams, and guidelines.
+- The `docs` directory contains architecture diagrams, checklists, IP plans, and guidelines.
 - The [WIKI](https://github.com/vespertron/SQLServer_VENV/wiki) is used for detailed, **step-by-step** guides, best practices, troubleshooting tips and knowledge sharing.
 - System and Database Administration tasks are logged on [this Trello board](https://trello.com/b/RnV4u78D/sql-server-system-database-administration).
 
