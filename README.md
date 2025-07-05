@@ -3,14 +3,52 @@ This repository contains scripts, configurations, and documentation for standing
 
 ---
 
+## Features
+- **Virtualization Setup**: Templates and configuration for provisioning VMs with Hyper-V, VMware, or Proxmox
+- **Secure Networking**: VLAN and firewall configuration for isolated, compliant environments
+- **Database Deployment**: SQL Server setup with filegroups, collation, containment, RBAC, and encryption
+- **ETL Design**: Pipeline structure with validation and error logging
+- **CI/CD Integration**: Ready-to-use YAML files for GitHub Actions and Azure Pipelines
+- **Backups & DR**: Strategy for full/differential/log backups and restore testing
+- **Documentation**: Flowcharts, configs, and access control matrices for audit and scale
+
+---
+
+## Documentation
+- This README.md file provides an overview of the project, its structure, and how to set up the environments.
+- The `docs` directory contains architecture diagrams, checklists, IP plans, and guidelines.
+- The [WIKI](https://github.com/vespertron/SQLServer_VENV/wiki) is used for detailed, **step-by-step** guides, best practices, troubleshooting tips and knowledge sharing.
+- System and Database Administration tasks are logged on [this Trello board](https://trello.com/b/RnV4u78D/sql-server-system-database-administration).
+
+---
+
 ## Repo Structure
 ```
 ├── virtualization/
-│ ├── hypervisor_config/
-│ ├── vm_templates/
-│ ├── network_topology/
-│ ├── firewall_rules/
-│ └── patching_strategy.md
+|   ├── ansible/                         # Playbooks for post-VM configuration
+│   |   ├── inventory/                   # Host/group inventory
+│   |   ├── roles/                       # Ansible roles for SQL, AD, IIS, etc.
+│   |   └── site.yml                     # Entry playbook
+|   ├── packer/                          # Packer templates to build golden images
+│   |   ├── windows-server-2022.json
+│   |   └── scripts/
+│   |       ├── install-sql.ps1
+│   |       └── enable-rdp.ps1
+|   ├── terraform/                       # Infrastructure provisioning (if cloud or nested ESXi)
+│   |   ├── main.tf
+│   |   ├── variables.tf
+│   |   └── outputs.tf
+|   ├── tests/                           # Automated tests (e.g., Inspec, Pester, PowerShell)
+│   |   ├── validate-domain.ps1
+│   |   └── test-sql-service.ps1
+|   ├── docs/                            # Architecture, checklist, config
+│   |   ├── VM_Setup_Checklist.xlsx
+│   |   ├── network-plan.md
+│   |   └── vm-topology.drawio
+|   ├── scripts/                         # General provisioning scripts
+|   │   ├── create-vms.ps1
+|   │   ├── set-static-ip.ps1
+|   │   └── join-domain.ps1
 ├── database/
 │ ├── schema/
 │ │ ├── create_databases.sql
@@ -38,24 +76,6 @@ This repository contains scripts, configurations, and documentation for standing
 │ └── architecture_overview.md
 └── README.md
 ```
----
-
-## Features
-- **Virtualization Setup**: Templates and configuration for provisioning VMs with Hyper-V, VMware, or Proxmox
-- **Secure Networking**: VLAN and firewall configuration for isolated, compliant environments
-- **Database Deployment**: SQL Server setup with filegroups, collation, containment, RBAC, and encryption
-- **ETL Design**: Pipeline structure with validation and error logging
-- **CI/CD Integration**: Ready-to-use YAML files for GitHub Actions and Azure Pipelines
-- **Backups & DR**: Strategy for full/differential/log backups and restore testing
-- **Documentation**: Flowcharts, configs, and access control matrices for audit and scale
-
----
-
-## Documentation
-- This README.md file provides an overview of the project, its structure, and how to set up the environments.
-- The `docs` directory contains detailed documentation on the project, including setup instructions, best practices, and troubleshooting tips.
-- The [wiki](https://github.com/vespertron/SQLServer_VENV/wiki) is used for collaborative documentation and knowledge sharing.
-- System and Database Administration tasks are logged on [this Trello board](https://trello.com/b/RnV4u78D/sql-server-system-database-administration).
 
 ---
 
@@ -128,7 +148,8 @@ This document outlines all the tools and accounts required to use this repositor
 | **SSMS**                | https://aka.ms/ssms                                       |
 | **Azure Data Studio**   | https://learn.microsoft.com/en-us/sql/azure-data-studio  |
 | **Proxmox VE ISO**      | https://www.proxmox.com/en/downloads                     |
-| **Hyper-V (Windows)**   | https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/ |
+| **VMWare Workstation**  | https://support.broadcom.com/group/ecx/free-downloads |
+| **Windows Server 2022 ISO** | https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022 |
 | **Git**                 | https://git-scm.com/downloads                            |
 
 ---
