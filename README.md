@@ -3,6 +3,25 @@ This repository contains scripts, configurations, and documentation for standing
 
 ---
 
+## Features
+- **Virtualization Setup**: Templates and configuration for provisioning VMs with Hyper-V, VMware, or Proxmox
+- **Secure Networking**: VLAN and firewall configuration for isolated, compliant environments
+- **Database Deployment**: SQL Server setup with filegroups, collation, containment, RBAC, and encryption
+- **ETL Design**: Pipeline structure with validation and error logging
+- **CI/CD Integration**: Ready-to-use YAML files for GitHub Actions and Azure Pipelines
+- **Backups & DR**: Strategy for full/differential/log backups and restore testing
+- **Documentation**: Flowcharts, configs, and access control matrices for audit and scale
+
+---
+
+## Documentation
+- This README.md file provides an overview of the project, its structure, and how to set up the environments.
+- The `docs` directory contains documentation on the project including templates, diagrams, and guidelines.
+- The [WIKI](https://github.com/vespertron/SQLServer_VENV/wiki) is used for detailed, **step-by-step guides**, best practices, troubleshooting tips and knowledge sharing.
+- System and Database Administration tasks are logged on [this Trello board](https://trello.com/b/RnV4u78D/sql-server-system-database-administration).
+
+---
+
 ## Repo Structure
 ```
 ├── virtualization/
@@ -57,24 +76,6 @@ This repository contains scripts, configurations, and documentation for standing
 │ └── architecture_overview.md
 └── README.md
 ```
----
-
-## Features
-- **Virtualization Setup**: Templates and configuration for provisioning VMs with Hyper-V, VMware, or Proxmox
-- **Secure Networking**: VLAN and firewall configuration for isolated, compliant environments
-- **Database Deployment**: SQL Server setup with filegroups, collation, containment, RBAC, and encryption
-- **ETL Design**: Pipeline structure with validation and error logging
-- **CI/CD Integration**: Ready-to-use YAML files for GitHub Actions and Azure Pipelines
-- **Backups & DR**: Strategy for full/differential/log backups and restore testing
-- **Documentation**: Flowcharts, configs, and access control matrices for audit and scale
-
----
-
-## Documentation
-- This README.md file provides an overview of the project, its structure, and how to set up the environments.
-- The `docs` directory contains documentation on the project including templates, diagrams, and guidelines.
-- The [WIKI](https://github.com/vespertron/SQLServer_VENV/wiki) is used for detailed, **step-by-step guides**, best practices, troubleshooting tips and knowledge sharing.
-- System and Database Administration tasks are logged on [this Trello board](https://trello.com/b/RnV4u78D/sql-server-system-database-administration).
 
 ---
 
