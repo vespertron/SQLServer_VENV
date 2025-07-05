@@ -129,6 +129,7 @@ This document outlines all the tools and accounts required to use this repositor
 | **Azure Data Studio**   | https://learn.microsoft.com/en-us/sql/azure-data-studio  |
 | **Proxmox VE ISO**      | https://www.proxmox.com/en/downloads                     |
 | **VMWare Workstation**  | https://support.broadcom.com/group/ecx/free-downloads |
+| **Windows Server 2022 ISO** | https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022 |
 | **Git**                 | https://git-scm.com/downloads                            |
 
 ---
