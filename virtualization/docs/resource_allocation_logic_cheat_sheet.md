@@ -16,7 +16,23 @@ Use this guide to plan and allocate memory (RAM) for each VM role based on its w
 
 ---
 
-## Baseline RAM Guidelines by VM Role
+## vCPU (Virtual CPUs)
+- **Start conservatively:** Begin with a small number of vCPUs (e.g., 1 or 2) and monitor performance.
+- **Consider overcommitment:** You can often overcommit vCPUs (allocate more vCPUs than physical cores), but excessive overcommitment can impact performance. A 2:1 or 3:1 ratio (vCPUs to physical cores) is generally considered safe.
+- **Monitor resource usage:** Track CPU utilization and identify if more or fewer vCPUs are needed.
+- **Application requirements:** The specific application(s) running on the VM will dictate vCPU requirements. Some applications benefit from multiple cores, while others are less sensitive.
+
+---
+
+## RAM (Memory)
+- **Basic VMs:** 1-2 GB is a good starting point for simple tasks. 
+- **Standard VMs:** 4-8 GB is often sufficient for many workloads. 
+- **Resource-intensive VMs:** 8 GB or more, potentially much more, depending on the application and its memory demands. 
+- **Overhead:** Account for hypervisor overhead (memory used by the hypervisor itself) and potential memory ballooning (where the hypervisor reclaims unused memory from the VM). 
+- **Application-specific needs:** Some applications, like databases or CAD software, can require very large amounts of RAM. 
+- **Oversubscription:** Like vCPUs, you can oversubscribe RAM, but it's important to monitor usage and ensure you have sufficient physical RAM to handle the combined demands of all VMs. 
+
+# Baseline RAM Guidelines by VM Role
 
 | **VM Role**              | **Minimum RAM** | **Recommended** | **Why** |
 |--------------------------|------------------|------------------|--------|
@@ -29,7 +45,45 @@ Use this guide to plan and allocate memory (RAM) for each VM role based on its w
 
 ---
 
-## Allocation Ratio Reference (Relative Importance)
+## Storage (Disk Space)
+
+#### Operating System:
+Allocate enough space for the OS installation, updates, and basic applications (e.g., 40-60 GB for Windows). 
+
+#### Data and Application Storage:
+Consider the size of the data and applications the VM will handle. 
+
+#### Performance Considerations:
+For performance-critical VMs, consider using faster storage technologies like SSDs. 
+
+#### Dynamic Sizing:
+VMware supports dynamic disk expansion, so you can start with a smaller disk size and increase it later if needed, says a Reddit thread. 
+
+---
+
+## General Tips
+
+#### Start small and scale:
+It's generally better to start with smaller resource allocations and increase them as needed based on monitoring.
+
+#### Monitor resource utilization:
+Use vCenter or other monitoring tools to track CPU, memory, and disk usage.
+
+#### Consider the workload:
+The specific applications and their demands will heavily influence resource allocation.
+- **Active Directory**
+- **FileShare**
+- **WebApp**
+- **SQL Server**
+
+#### Vendor recommendations:
+Always refer to the documentation for the operating system and applications running on the VM for recommended resource allocations.
+
+#### Test and refine:
+Monitor performance after initial setup and adjust resources as needed to optimize performance and efficiency.
+
+
+### Allocation Ratio Reference (Relative Importance)
 
 Use these approximate **ratio-based allocations** when distributing a fixed pool of memory across different workloads:
 - SQL VM : 6 parts
@@ -43,6 +97,22 @@ Use these approximate **ratio-based allocations** when distributing a fixed pool
 > - WebApp: 2/11 × 27 = ~4.9 GB
 > - AD: 2/11 × 27 = ~4.9 GB
 > - FileShare: 1/11 × 27 = ~2.5 GB
+
+---
+
+## Example VM Allocation Table
+
+| **VM Name**         | **Purpose**                | **Environment** | **vCPUs** | **RAM (GB)** | **Storage (GB)** | **Org** |
+|---------------------|-----------------------------|-----------------|-----------|--------------|------------------|---------|
+| AD-DomainController | Centralized Identity Service| Shared          | 2         | 4            | 40               | All     |
+| FileShare           | Network file storage        | Shared          | 1         | 2            | 100              | All     |
+| SQL-Dev             | SQL Server (Dev)            | Dev             | 4         | 12           | 150              | All     |
+| WebApp-Dev          | Web/API services (Dev)      | Dev             | 2         | 4            | 40               | All     |
+| SQL-Staging         | SQL Server (Staging)        | Staging         | 4         | 12           | 150              | All     |
+| WebApp-Staging      | Web/API services (Staging)  | Staging         | 2         | 4            | 40               | All     |
+| SQL-Prod            | SQL Server (Prod)           | Prod            | 4         | 12           | 150              | All     |
+| WebApp-Prod         | Web/API services (Prod)     | Prod            | 2         | 4            | 40               | All     |
+| **Total**           |                             |                 | **21**    | **54**       | **710**          |         |
 
 ---
 
