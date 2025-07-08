@@ -244,5 +244,5 @@ paket-files/
 .idea/
 *.sln.iml
 
-
-resource_allocation_audit.xlsx
+# secrets
+virtualization/docs/resource_allocation_audit.xlsx
