@@ -1,4 +1,4 @@
-# On-Prem Virtualization & Database Administration
+# On-Prem Virtualization & Data Architecture
 This repository contains scripts, configurations, and documentation for standing up a secure, high-performance on-premise infrastructure with virtualized environments and robust SQL Server database administration. It includes CI/CD automation, backup strategies, ETL pipelines, and performance monitoring practices.
 
 ---
