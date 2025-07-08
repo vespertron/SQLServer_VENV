@@ -1,111 +1,92 @@
--- ========================
--- CREATE TABLES
----------------------------
--- Server: [My local SQL server]
--- Database: CentralServicesDB
--- Author: Vesper Annstas
--- Date: 07/02/2025
--- Description: This script creates the necessary tables for the CentralServicesDB database. Is dependent on the database being created first.
--- Last Modified: 07/02/2025
--- Modified By: Vesper Annstas
--- Modification Notes: initial creation of tables for the CentralServicesDB database.
--- ========================
 
-USE CentralServicesDB;
-GO
-
--- ========================
--- CREATE SCHEMAS IF NOT EXISTS
--- ========================
--- CREATE SCHEMA HR     __ Human Resources
--- CREATE SCHEMA IT     -- Information Technology
--- CREATE SCHEMA ACC    -- Accounting
--- CREATE SCHEMA FIN    -- Finance
--- CREATE SCHEMA LEGAL  -- Legal
--- CREATE SCHEMA ODS	-- Operational Data Store
--- CREATE SCHEMA MKT    -- Marketing
--- CREATE SCHEMA SYS    -- Multi-tenant System
-
-
-USE CentralServicesDB;
-GO
-
--- HR Schema
-CREATE TABLE HR.HR_Employees (
-    EmployeeID INT PRIMARY KEY,
-    FirstName NVARCHAR(50),
-    LastName NVARCHAR(50),
-    SubsidiaryID INT,
-    Role NVARCHAR(100),
-    Department NVARCHAR(100),
-    HireDate DATE
+-- Centralized Chart of Accounts
+CREATE TABLE chart_of_accounts (
+    account_id INT PRIMARY KEY,
+    account_code NVARCHAR(20) NOT NULL,
+    account_name NVARCHAR(100) NOT NULL,
+    account_type NVARCHAR(50), -- Asset, Liability, Revenue, Expense
+    parent_account_id INT NULL,
+    is_active BIT DEFAULT 1
 );
 
--- IT Schema
-CREATE TABLE IT.IT_Assets (
-    AssetID INT PRIMARY KEY,
-    AssetType NVARCHAR(50),
-    AssignedToEmployeeID INT,
-    PurchaseDate DATE,
-    WarrantyExpiry DATE,
-    SubsidiaryID INT
+
+-- Departments (IT, HR, Legal, etc.)
+CREATE TABLE fin.departments (
+    department_id INT PRIMARY KEY,
+    department_name NVARCHAR(100),
+    cost_center_code NVARCHAR(20),
+    is_active BIT DEFAULT 1
 );
 
--- Accounting / Finance Schema
-CREATE TABLE FIN.Finance_Ledger (
-    EntryID INT PRIMARY KEY,
-    SubsidiaryID INT,
-    AccountCode NVARCHAR(20),
-    Amount DECIMAL(18, 2),
-    EntryDate DATE,
-    Description NVARCHAR(255)
+-- Finance Ledger (Central Journal)
+CREATE TABLE fin.finance_ledger (
+    ledger_id INT IDENTITY PRIMARY KEY,
+    transaction_date DATE NOT NULL,
+    entity_id INT NOT NULL,
+    department_id INT,
+    account_id INT NOT NULL,
+    amount DECIMAL(18, 2) NOT NULL,
+    currency_code CHAR(3),
+    entry_type NVARCHAR(50), -- AP, AR, Payroll, Journal, Accrual, etc.
+    reference_doc NVARCHAR(100),
+    description NVARCHAR(255),
+    created_at DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (entity_id) REFERENCES fin.entities(entity_id),
+    FOREIGN KEY (department_id) REFERENCES fin.departments(department_id),
+    FOREIGN KEY (account_id) REFERENCES fin.chart_of_accounts(account_id)
 );
 
--- Legal Schema
-CREATE TABLE LEG.Legal_Contracts (
-    ContractID INT PRIMARY KEY,
-    SubsidiaryID INT,
-    ContractName NVARCHAR(100),
-    StartDate DATE,
-    EndDate DATE,
-    LegalContact NVARCHAR(100),
-    Status NVARCHAR(50)
+-- Operational Tables
+CREATE TABLE fin.buyers (
+    buyer_id INT PRIMARY KEY,
+    buyer_name NVARCHAR(100),
+    contact_email NVARCHAR(100)
 );
 
--- Credit / Financing
-CREATE TABLE FIN.Credit_Scores (
-    SubsidiaryID INT PRIMARY KEY,
-    Score INT,
-    LastEvaluated DATE,
-    CreditLimit DECIMAL(18, 2),
-    RiskLevel NVARCHAR(50)
+CREATE TABLE fin.suppliers (
+    supplier_id INT PRIMARY KEY,
+    supplier_name NVARCHAR(100),
+    contact_email NVARCHAR(100)
 );
 
--- Protecting Subsidiaries' Data
-CREATE TABLE CEN.Subsidiary_Info (
-    SubsidiaryID INT PRIMARY KEY,
-    Name NVARCHAR(100),
-    Region NVARCHAR(50),
-    DataIsolationLevel NVARCHAR(50)  -- e.g. "Strict", "Shared-Metadata-Only"
+CREATE TABLE fin.bookings (
+    booking_id INT PRIMARY KEY,
+    entity_id INT,
+    buyer_id INT,
+    booking_date DATE,
+    amount DECIMAL(18, 2),
+    description NVARCHAR(255),
+    FOREIGN KEY (entity_id) REFERENCES fin.entities(entity_id),
+    FOREIGN KEY (buyer_id) REFERENCES fin.buyers(buyer_id)
 );
 
-CREATE TABLE ODS.DocumentLibrary (
-    DocumentID INT PRIMARY KEY CLUSTERED,
-    DocumentType VARCHAR(100),
-    RelatedEntityType VARCHAR(50),
-    RelatedEntityID INT,
-    FileName NVARCHAR(255),
-    FilePath NVARCHAR(500),
-    UploadDate DATETIME,
-    UploadedBy INT
+CREATE TABLE fin.purchases (
+    purchase_id INT PRIMARY KEY,
+    entity_id INT,
+    supplier_id INT,
+    purchase_date DATE,
+    amount DECIMAL(18, 2),
+    description NVARCHAR(255),
+    FOREIGN KEY (entity_id) REFERENCES fin.entities(entity_id),
+    FOREIGN KEY (supplier_id) REFERENCES fin.suppliers(supplier_id)
 );
 
-CREATE TABLE MKT.MarketingAsset (
-    AssetID INT PRIMARY KEY CLUSTERED,
-    RelatedProductID INT,
-    Platform VARCHAR(100),
-    ContentType VARCHAR(50),
-    AssetPath NVARCHAR(500),
-    CampaignName VARCHAR(100),
-    PostedDate DATETIME
+-- HR Table (Minimal Placeholder)
+CREATE TABLE fin.employees (
+    employee_id INT PRIMARY KEY,
+    full_name NVARCHAR(100),
+    hire_date DATE,
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES fin.departments(department_id)
+);
+
+-- Legal Docs Table
+CREATE TABLE fin.documents (
+    document_id INT PRIMARY KEY,
+    entity_id INT,
+    document_type NVARCHAR(50),
+    document_name NVARCHAR(100),
+    uploaded_at DATETIME DEFAULT GETDATE(),
+    file_path NVARCHAR(255),
+    FOREIGN KEY (entity_id) REFERENCES fin.entities(entity_id)
 );
