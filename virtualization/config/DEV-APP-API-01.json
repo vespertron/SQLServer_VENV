@@ -1,0 +1,11 @@
+{
+  "ComputerName": "DEV-APP-API-01",
+  "Network": {
+    "IPAddress": "192.168.44.14",
+    "Subnet": "255.255.255.0",
+    "Gateway": "192.168.44.2",
+    "DNS": "8.8.8.8"
+  },
+  "Roles": "API" ,
+  "Environment": "DEV"
+}
