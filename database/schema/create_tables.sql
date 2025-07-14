@@ -1,4 +1,4 @@
-
+;
 -- Centralized Chart of Accounts
 CREATE TABLE chart_of_accounts (
     account_id INT PRIMARY KEY,
